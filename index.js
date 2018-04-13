@@ -20,6 +20,15 @@ const cats = [{
   age: 4,
   breed: 'Common Shorthair',
   story: 'Too awesome for last owner'
+},
+{
+  imageURL: 'https://www.bluecross.org.uk/sites/default/files/assets/images/124044lpr.jpg',
+  imageDescription: 'An inquisitive cat, with salt and pepper hair',
+  name: 'Jake',
+  sex: 'Female',
+  age: 10,
+  breed: 'Cat',
+  story: 'Ran Away'
 }
 ];
 
@@ -41,6 +50,15 @@ const dogApiData = [
     age: 5,
     breed: 'Australian Shepard',
     story: 'Rescued from an earthquake.'
+  },
+  {
+    imageURL: 'https://www.rover.com/blog/wp-content/uploads/2015/07/greta-dressed-in-her-weiner-dog-costume.jpg',
+    imageDescription: 'A dog wearing a costume',
+    name: 'Vern',
+    sex: 'Male',
+    age: 8,
+    breed: 'Weiner dog',
+    story: 'Ran Away'
   }
 ];
 
@@ -68,7 +86,7 @@ app.get('/cat', (req, res) => {
   res.json(cats[0]);
 });
 
-app.delete('/delete/cat', (req, res) => {
+app.delete('/cat', (req, res) => {
   cats.shift();
   res.json(cats);
 });
