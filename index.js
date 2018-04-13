@@ -4,8 +4,6 @@ const cors = require('cors');
 const morgan = require('morgan');
 const Queue = require('./queue');
 
-
-
 const catApiData = [{
   imageURL: 'https://assets3.thrillist.com/v1/image/2622128/size/tmg-slideshow_l.jpg',
   imageDescription: 'Orange bengal cat with black stripes lounging on concrete.',
@@ -124,7 +122,7 @@ app.get('/cat', (req, res) => {
 });
 
 app.delete('/cat', (req, res) => {
-  catApiData.dequeue();
+  catQueue.dequeue();
 });
 
 
@@ -133,7 +131,7 @@ app.get('/dogs', (req, res) => {
 });
 
 app.delete('/dogs', (req, res) => {
-  dogApiData.dequeue();
+  dogQueue.dequeue();
 });
 
 
