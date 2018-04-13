@@ -4,12 +4,6 @@ const cors = require('cors');
 const morgan = require('morgan');
 const Queue = require('./queue');
 
-function peek(stack) {
-  if (stack.first === null) {
-    console.log('Theres nothing here!');
-  }
-  else return stack.first.value;
-}
 
 
 const catApiData = [{
@@ -115,6 +109,13 @@ app.use(
     origin: CLIENT_ORIGIN
   })
 );
+
+function peek(stack) {
+  if (stack.first === null) {
+    console.log('Theres nothing here!');
+  }
+  else return stack.first.value;
+}
 
 
 
