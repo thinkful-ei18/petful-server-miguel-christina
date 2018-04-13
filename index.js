@@ -4,12 +4,6 @@ const cors = require('cors');
 const morgan = require('morgan');
 const Queue = require('./queue');
 
-function peek(stack) {
-  if (stack.first === null) {
-    console.log('Theres nothing here!');
-  }
-  else return stack.first.value;
-}
 
 
 const catApiData = [{
@@ -116,10 +110,17 @@ app.use(
   })
 );
 
+function peek(stack) {
+  if (stack.first === null) {
+    console.log('Theres nothing here!');
+  }
+  else return stack.first.value;
+}
+
 
 
 app.get('/cat', (req, res) => {
-  res.json(catApiData.peek());
+  res.json(peek(catQueue));
 });
 
 app.delete('/cat', (req, res) => {
@@ -128,7 +129,7 @@ app.delete('/cat', (req, res) => {
 
 
 app.get('/dogs', (req, res) => {
-  res.json(dogApiData.peek());
+  res.json(peek(dogQueue));
 });
 
 app.delete('/dogs', (req, res) => {
