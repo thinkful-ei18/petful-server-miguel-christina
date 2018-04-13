@@ -2,15 +2,17 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const Queue = require('./queue');
 
-function peak(stack) {
+function peek(stack) {
   if (stack.top === null) {
     console.log('Theres nothing here!');
-  } else return stack.top.data;
+  }
+  else return stack.top.data;
 }
 
 
-const cats = [{
+const catApiData = [{
   imageURL: 'https://assets3.thrillist.com/v1/image/2622128/size/tmg-slideshow_l.jpg',
   imageDescription: 'Orange bengal cat with black stripes lounging on concrete.',
   name: 'Fluffy',
@@ -36,6 +38,15 @@ const cats = [{
   age: 10,
   breed: 'Cat',
   story: 'Ran Away'
+},
+{
+  imageURL: 'https://www.petmd.com/sites/default/files/petmd-cat-happy-13.jpg',
+  imageDescription: 'A cat with its toung out',
+  name: 'Barney',
+  sex: 'Female',
+  age: 11,
+  breed: 'Tabby',
+  story: 'Kicked out of the house for eating all the fish.'
 }
 ];
 
@@ -66,8 +77,26 @@ const dogApiData = [
     age: 8,
     breed: 'Weiner dog',
     story: 'Ran Away'
+  },
+  {
+    imageURL: 'http://animals.sandiegozoo.org/sites/default/files/2016-12/Wolf_ZN.jpg',
+    imageDescription: 'A wolf, with it\'s toung out',
+    name: 'Rick',
+    sex: 'Male',
+    age: 9,
+    breed: 'Wolf',
+    story: 'Wandered into the shelter'
   }
 ];
+
+let catQueue = new Queue();
+let dogQueue = new Queue();
+
+catApiData.forEach((cat) => catQueue.enqueue(cat));
+dogApiData.forEach((dog) => dogQueue.enqueue(dog));
+
+
+
 
 const { PORT, CLIENT_ORIGIN } = require('./config');
 // const { dbConnect } = require('./db-mongoose');
