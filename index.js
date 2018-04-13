@@ -2,6 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const Queue = require('./queue');
 
 function peak(stack) {
   if (stack.top === null) {
@@ -10,25 +11,27 @@ function peak(stack) {
 }
 
 
-const cats = [{
-  imageURL: 'https://assets3.thrillist.com/v1/image/2622128/size/tmg-slideshow_l.jpg',
-  imageDescription: 'Orange bengal cat with black stripes lounging on concrete.',
-  name: 'Fluffy',
-  sex: 'Female',
-  age: 2,
-  breed: 'Bengal',
-  story: 'Thrown on the street'
-},
-{
-  imageURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC_1cvH240d8UYYYJgY8d-Eh9BJZkr_EyqDAlkfjU05eikqXxdWg',
-  imageDescription: 'White and Brown cat frowning',
-  name: 'Smiles',
-  sex: 'Male',
-  age: 4,
-  breed: 'Common Shorthair',
-  story: 'Too awesome for last owner'
-}
-];
+
+// const cats = [{
+//   imageURL: 'https://assets3.thrillist.com/v1/image/2622128/size/tmg-slideshow_l.jpg',
+//   imageDescription: 'Orange bengal cat with black stripes lounging on concrete.',
+//   name: 'Fluffy',
+//   sex: 'Female',
+//   age: 2,
+//   breed: 'Bengal',
+//   story: 'Thrown on the street'
+// },
+// {
+//   imageURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC_1cvH240d8UYYYJgY8d-Eh9BJZkr_EyqDAlkfjU05eikqXxdWg',
+//   imageDescription: 'White and Brown cat frowning',
+//   name: 'Smiles',
+//   sex: 'Male',
+//   age: 4,
+//   breed: 'Common Shorthair',
+//   story: 'Too awesome for last owner'
+// }
+// ];
+const cats = new Queue();
 
 const dogApiData = [
   {
@@ -72,22 +75,20 @@ app.use(
 
 
 app.get('/cat', (req, res) => {
-  res.json(cats[0]);
+  res.json(cats.peak());
 });
 
 app.delete('/cat', (req, res) => {
-  cats.shift();
-  res.json(cats);
+  cats.dequeue();
 });
 
 
 app.get('/dogs', (req, res) => {
-  res.json(dogApiData[0]);
+  res.json(dogs.peak());
 });
 
 app.delete('/dogs', (req, res) => {
-  return dogApiData.shift()
-    .then(res.json(dogApiData[0]));
+  dogs.dequeue();
 });
 
 
