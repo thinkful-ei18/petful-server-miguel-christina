@@ -124,7 +124,8 @@ app.get('/cat', (req, res) => {
 });
 
 app.delete('/cat', (req, res) => {
-  catApiData.dequeue();
+  catQueue.dequeue();
+  res.json(peek(catQueue));
 });
 
 
@@ -133,7 +134,8 @@ app.get('/dogs', (req, res) => {
 });
 
 app.delete('/dogs', (req, res) => {
-  dogApiData.dequeue();
+  dogQueue.dequeue();
+  res.json(peek(dogQueue));
 });
 
 
