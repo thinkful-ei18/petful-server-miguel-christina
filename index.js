@@ -23,6 +23,27 @@ app.use(
 );
 
 
+const dogApiData =[
+  {
+    imageURL: 'http://www.dogster.com/wp-content/uploads/2015/05/Cute%20dog%20listening%20to%20music%201_1.jpg',
+    imageDescription: 'A smiling golden-brown golden retreiver listening to music.',
+    name: 'Zeus',
+    sex: 'Male',
+    age: 3,
+    breed: 'Golden Retriever',
+    story: 'Owner Passed away'
+  },
+  {
+    imageURL: 'https://www.cesarsway.com/sites/newcesarsway/files/styles/large_article_preview/public/Common-dog-behaviors-explained.jpg?itok=FSzwbBoihttps://www.cesarsway.com/sites/newcesarsway/files/styles/large_article_preview/public/Common-dog-behaviors-explained.jpg?itok=FSzwbBoi',
+    imageDescription: 'A dog tilting it\'s head out of curiosity',
+    name: 'Jack',
+    sex: 'Female',
+    age: 5,
+    breed: 'Australian Shepard',
+    story: 'Rescued from an earthquake.'
+  }
+]
+
 app.get('/cat', (req, res) => {
   res.json({
     imageURL: 'https://assets3.thrillist.com/v1/image/2622128/size/tmg-slideshow_l.jpg',
@@ -35,16 +56,13 @@ app.get('/cat', (req, res) => {
   });
 });
 
-app.get('/dogs',(req,res) => {
-  res.json({
-    imageURL: 'http://www.dogster.com/wp-content/uploads/2015/05/Cute%20dog%20listening%20to%20music%201_1.jpg',
-    imageDescription: 'A smiling golden-brown golden retreiver listening to music.',
-    name: 'Zeus',
-    sex: 'Male',
-    age: 3,
-    breed: 'Golden Retriever',
-    story: 'Owner Passed away'
-  });
+app.get('/dogs',(req, res) => {
+  res.json(dogApiData[0]);
+});
+
+app.delete('/dogs', (req, res) => {
+  return dogApiData.shift()
+    .then(res.json(dogApiData[0]))
 });
 
 
