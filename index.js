@@ -4,34 +4,51 @@ const cors = require('cors');
 const morgan = require('morgan');
 const Queue = require('./queue');
 
-function peak(stack) {
-  if (stack.top === null) {
+function peek(stack) {
+  if (stack.first === null) {
     console.log('Theres nothing here!');
-  } else return stack.top.data;
+  }
+  else return stack.first.value;
 }
 
 
-
-// const cats = [{
-//   imageURL: 'https://assets3.thrillist.com/v1/image/2622128/size/tmg-slideshow_l.jpg',
-//   imageDescription: 'Orange bengal cat with black stripes lounging on concrete.',
-//   name: 'Fluffy',
-//   sex: 'Female',
-//   age: 2,
-//   breed: 'Bengal',
-//   story: 'Thrown on the street'
-// },
-// {
-//   imageURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC_1cvH240d8UYYYJgY8d-Eh9BJZkr_EyqDAlkfjU05eikqXxdWg',
-//   imageDescription: 'White and Brown cat frowning',
-//   name: 'Smiles',
-//   sex: 'Male',
-//   age: 4,
-//   breed: 'Common Shorthair',
-//   story: 'Too awesome for last owner'
-// }
-// ];
-const cats = new Queue();
+const catApiData = [{
+  imageURL: 'https://assets3.thrillist.com/v1/image/2622128/size/tmg-slideshow_l.jpg',
+  imageDescription: 'Orange bengal cat with black stripes lounging on concrete.',
+  name: 'Fluffy',
+  sex: 'Female',
+  age: 2,
+  breed: 'Bengal',
+  story: 'Thrown on the street'
+},
+{
+  imageURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC_1cvH240d8UYYYJgY8d-Eh9BJZkr_EyqDAlkfjU05eikqXxdWg',
+  imageDescription: 'White and Brown cat frowning',
+  name: 'Smiles',
+  sex: 'Male',
+  age: 4,
+  breed: 'Common Shorthair',
+  story: 'Too awesome for last owner'
+},
+{
+  imageURL: 'https://www.bluecross.org.uk/sites/default/files/assets/images/124044lpr.jpg',
+  imageDescription: 'An inquisitive cat, with salt and pepper hair',
+  name: 'Jake',
+  sex: 'Female',
+  age: 10,
+  breed: 'Cat',
+  story: 'Ran Away'
+},
+{
+  imageURL: 'https://www.petmd.com/sites/default/files/petmd-cat-happy-13.jpg',
+  imageDescription: 'A cat with its toung out',
+  name: 'Barney',
+  sex: 'Female',
+  age: 11,
+  breed: 'Tabby',
+  story: 'Kicked out of the house for eating all the fish.'
+}
+];
 
 const dogApiData = [
   {
@@ -51,8 +68,35 @@ const dogApiData = [
     age: 5,
     breed: 'Australian Shepard',
     story: 'Rescued from an earthquake.'
+  },
+  {
+    imageURL: 'https://www.rover.com/blog/wp-content/uploads/2015/07/greta-dressed-in-her-weiner-dog-costume.jpg',
+    imageDescription: 'A dog wearing a costume',
+    name: 'Vern',
+    sex: 'Male',
+    age: 8,
+    breed: 'Weiner dog',
+    story: 'Ran Away'
+  },
+  {
+    imageURL: 'http://animals.sandiegozoo.org/sites/default/files/2016-12/Wolf_ZN.jpg',
+    imageDescription: 'A wolf, with it\'s toung out',
+    name: 'Rick',
+    sex: 'Male',
+    age: 9,
+    breed: 'Wolf',
+    story: 'Wandered into the shelter'
   }
 ];
+
+let catQueue = new Queue();
+let dogQueue = new Queue();
+
+catApiData.forEach((cat) => catQueue.enqueue(cat));
+dogApiData.forEach((dog) => dogQueue.enqueue(dog));
+
+
+
 
 const { PORT, CLIENT_ORIGIN } = require('./config');
 // const { dbConnect } = require('./db-mongoose');
@@ -75,20 +119,20 @@ app.use(
 
 
 app.get('/cat', (req, res) => {
-  res.json(cats.peak());
+  res.json(catApiData.peek());
 });
 
 app.delete('/cat', (req, res) => {
-  cats.dequeue();
+  catApiData.dequeue();
 });
 
 
 app.get('/dogs', (req, res) => {
-  res.json(dogs.peak());
+  res.json(dogApiData.peek());
 });
 
 app.delete('/dogs', (req, res) => {
-  dogs.dequeue();
+  dogApiData.dequeue();
 });
 
 
