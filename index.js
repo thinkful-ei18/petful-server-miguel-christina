@@ -119,7 +119,7 @@ app.use(
 
 
 app.get('/cat', (req, res) => {
-  res.json(catApiData.peek());
+  res.json(peek(catQueue));
 });
 
 app.delete('/cat', (req, res) => {
@@ -128,7 +128,7 @@ app.delete('/cat', (req, res) => {
 
 
 app.get('/dogs', (req, res) => {
-  res.json(dogApiData.peek());
+  res.json(peek(dogQueue));
 });
 
 app.delete('/dogs', (req, res) => {
