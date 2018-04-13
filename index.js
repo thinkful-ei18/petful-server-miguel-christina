@@ -123,10 +123,7 @@ app.get('/cat', (req, res) => {
 
 app.delete('/cat', (req, res) => {
   catQueue.dequeue();
-<<<<<<< HEAD
-=======
   res.json(peek(catQueue));
->>>>>>> 36b1dedee4b2c9dcb9ba9734f439279130453265
 });
 
 
@@ -136,10 +133,7 @@ app.get('/dogs', (req, res) => {
 
 app.delete('/dogs', (req, res) => {
   dogQueue.dequeue();
-<<<<<<< HEAD
-=======
   res.json(peek(dogQueue));
->>>>>>> 36b1dedee4b2c9dcb9ba9734f439279130453265
 });
 
 
