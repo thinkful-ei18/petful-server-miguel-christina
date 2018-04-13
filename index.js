@@ -3,6 +3,13 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 
+function peak(stack) {
+  if (stack.top === null) {
+    console.log('Theres nothing here!');
+  } else return stack.top.data;
+}
+
+
 const cats = [{
   imageURL: 'https://assets3.thrillist.com/v1/image/2622128/size/tmg-slideshow_l.jpg',
   imageDescription: 'Orange bengal cat with black stripes lounging on concrete.',
